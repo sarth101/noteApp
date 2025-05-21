@@ -31,6 +31,7 @@ android {
     }
 }
 
+
 dependencies {
 
     implementation(libs.appcompat)
@@ -53,4 +54,8 @@ dependencies {
     annotationProcessor ("androidx.room:room-compiler:2.7.1")
 
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
+    implementation("com.google.android.material:material:1.2.0-alpha03")
+
+    implementation(libs.doubleclick)
+
 }

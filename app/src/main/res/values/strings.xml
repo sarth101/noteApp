@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Notes</string>
+    <string name="priority">Priority : </string>
+    <string name="body">Message</string>
+    <string name="heading">Title</string>
 </resources>

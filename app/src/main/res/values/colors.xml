@@ -3,6 +3,13 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="primary_color">#141414</color>
-    <color name="dark_background">#EB1E1E1E</color>
+    <color name="dark_background">#141414</color>
     <color name="notes_block_color">#2C2C2C</color>
+    <color name="light_Black">#2B2B2B</color>
+    <color name="grey">#B3B3B3</color>
+    <color name="light_grey">#D4D4D4</color>
+    <color name="green">#008450</color>
+    <color name="yellow">#EFB700</color>
+    <color name="red">#B81D13</color>
+    <color name="default1">#6B6B60</color>
 </resources>

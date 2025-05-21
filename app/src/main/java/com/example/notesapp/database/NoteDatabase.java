@@ -18,7 +18,7 @@ public abstract class NoteDatabase extends RoomDatabase {
         if(noteDatabase == null){
             synchronized (NoteDatabase.class){
                 if(noteDatabase == null){
-                    noteDatabase = Room.databaseBuilder(context.getApplicationContext(), NoteDatabase.class, "notes_db").build();
+                    noteDatabase = Room.databaseBuilder(context.getApplicationContext(), NoteDatabase.class, "note_db").build();
                 }
             }
         }

@@ -9,18 +9,21 @@ public class Note {
     private int id;
     private String noteHeading;
     private String noteBody;
-    private int Priority;
-    private String alertDate;
-    private String alertTime;
+    private Priority notePriority;
 
     public Note() {}
 
-    public Note(String noteHeading, String noteBody, int priority, String alertDate, String alertTime) {
+    public Note(String noteHeading, String noteBody, Priority priority) {
         this.noteHeading = noteHeading;
         this.noteBody = noteBody;
-        Priority = priority;
-        this.alertDate = alertDate;
-        this.alertTime = alertTime;
+        notePriority = priority;
+    }
+
+    public Note(int id,String noteHeading, String noteBody, Priority priority) {
+        this.id = id;
+        this.noteHeading = noteHeading;
+        this.noteBody = noteBody;
+        notePriority = priority;
     }
 
     public int getId() {
@@ -47,27 +50,12 @@ public class Note {
         this.noteBody = noteBody;
     }
 
-    public int getPriority() {
-        return Priority;
+    public Priority getNotePriority() {
+        return notePriority;
     }
 
-    public void setPriority(int priority) {
-        Priority = priority;
+    public void setNotePriority(Priority notePriority) {
+        this.notePriority = notePriority;
     }
 
-    public String getAlertDate() {
-        return alertDate;
-    }
-
-    public void setAlertDate(String alertDate) {
-        this.alertDate = alertDate;
-    }
-
-    public String getAlertTime() {
-        return alertTime;
-    }
-
-    public void setAlertTime(String alertTime) {
-        this.alertTime = alertTime;
-    }
 }
