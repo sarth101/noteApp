@@ -3,4 +3,6 @@
     <string name="priority">Priority : </string>
     <string name="body">Message</string>
     <string name="heading">Title</string>
+    <string name="title_activity_home_page">HomePage</string>
+
 </resources>

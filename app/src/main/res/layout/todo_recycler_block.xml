@@ -6,13 +6,13 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:padding="10dp"
-    android:id="@+id/note_recycler_block"
+    android:id="@+id/Todo_recycler_block"
     android:background="@drawable/curve_box"
     android:elevation="5dp">
 
 
     <TextView
-        android:id="@+id/notesHeading"
+        android:id="@+id/TodoHeading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/light_Black"
@@ -25,7 +25,7 @@
 
 
     <TextView
-        android:id="@+id/notesBody"
+        android:id="@+id/TodoBody"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/font"
@@ -35,7 +35,7 @@
         android:textSize="18sp"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notesHeading" />
+        app:layout_constraintTop_toBottomOf="@+id/TodoHeading" />
 
     <View
         android:id="@+id/priorityView"

@@ -6,56 +6,55 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "notes")
 public class Note {
     @PrimaryKey(autoGenerate = true)
-    private int id;
-    private String noteHeading;
-    private String noteBody;
-    private Priority notePriority;
+    private int noteId;
+    private String title;
+    private String content;
+    private String category;
 
-    public Note() {}
-
-    public Note(String noteHeading, String noteBody, Priority priority) {
-        this.noteHeading = noteHeading;
-        this.noteBody = noteBody;
-        notePriority = priority;
+    private Note(){}
+    public Note(String title, String content, String category) {
+        this.title = title;
+        this.content = content;
+        this.category = category;
     }
 
-    public Note(int id,String noteHeading, String noteBody, Priority priority) {
-        this.id = id;
-        this.noteHeading = noteHeading;
-        this.noteBody = noteBody;
-        notePriority = priority;
+    public Note(int id, String title, String content, String category) {
+        this.noteId = id;
+        this.title = title;
+        this.content = content;
+        this.category = category;
     }
 
-    public int getId() {
-        return id;
+    public int getNoteId() {
+        return this.noteId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setNoteId(int id) {
+        this.noteId = id;
     }
 
-    public String getNoteHeading() {
-        return noteHeading;
+    public String getTitle() {
+        return this.title;
     }
 
-    public void setNoteHeading(String noteHeading) {
-        this.noteHeading = noteHeading;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getNoteBody() {
-        return noteBody;
+    public String getContent() {
+        return this.content;
     }
 
-    public void setNoteBody(String noteBody) {
-        this.noteBody = noteBody;
+    public void setContent(String subTitle) {
+        this.content = subTitle;
     }
 
-    public Priority getNotePriority() {
-        return notePriority;
+    public String getCategory(){
+        return this.category;
     }
 
-    public void setNotePriority(Priority notePriority) {
-        this.notePriority = notePriority;
+    public void setCategory(String category){
+        this.category = category;
     }
 
 }

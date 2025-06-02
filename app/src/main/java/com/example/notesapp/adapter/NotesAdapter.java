@@ -1,13 +1,8 @@
 package com.example.notesapp.adapter;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.app.Application;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,114 +10,81 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notesapp.R;
 import com.example.notesapp.model.Note;
-import com.example.notesapp.model.Priority;
-import com.example.notesapp.viewmodel.NotesViewModel;
-import com.example.notesapp.views.MainActivity;
-import com.example.notesapp.views.insert_note;
-import com.pedromassango.doubleclick.DoubleClick;
-import com.pedromassango.doubleclick.DoubleClickListener;
+import com.example.notesapp.utility.Utility;
+import com.example.notesapp.views.ui.note.notes_layout;
+import com.example.notesapp.viewmodel.NoteViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHolder> {
 
+    private final Context context;
+
     private List<Note> noteList = new ArrayList<>();
-    private Context context;
-    public void setNotes(List<Note> note){
-        this.noteList = note;
+    private NoteViewModel noteViewModel;
+
+
+    public NotesAdapter(@NonNull Context context) {
+        super();
+        this.context = context;
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void setNoteList(List<Note> noteList){
+        this.noteList = noteList;
         notifyDataSetChanged();
     }
 
-    NotesViewModel notesViewModel;
-
-    public NotesAdapter(Context context){
-        this.context = context;
+    public void  setNoteViewModel(NoteViewModel noteViewModel){
+        this.noteViewModel = noteViewModel;
     }
 
     @NonNull
     @Override
     public NotesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.notes_recycler_block,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.note_recycler_block, parent,false);
         return new NotesViewHolder(view);
     }
 
-    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull NotesViewHolder holder, int position) {
+
         Note note = noteList.get(position);
-        holder.noteHeadingTV.setText(note.getNoteHeading());
-        holder.noteBodyTV.setText(note.getNoteBody());
-        if (noteList.get(position).getNotePriority() == Priority.LOW){
-            holder.notePriorityV.setBackgroundColor(Color.parseColor("#008450"));
-        } else if (noteList.get(position).getNotePriority() == Priority.MEDIUM ){
-            holder.notePriorityV.setBackgroundColor(Color.parseColor("#EFB700"));
-        } else if (noteList.get(position).getNotePriority() == Priority.HIGH) {
-            holder.notePriorityV.setBackgroundColor(Color.parseColor("#B81D13"));
-        }else {
-            holder.notePriorityV.setBackgroundColor(R.color.default1);
-        }
+        holder.noteTitleTxt.setText(note.getTitle());
+        holder.noteContentTxt.setText(note.getContent());
+        holder.notesCategoryList.setText(note.getCategory());
 
-        holder.block.setOnLongClickListener(new View.OnLongClickListener() {
+        holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
-                notesViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(NotesViewModel.class);
+            public void onClick(View v) {
+                String noteTile = note.getTitle();
+                String noteContent = note.getContent();
+                String noteCategory = note.getCategory();
+                int noteId = note.getNoteId();
 
-                AlertDialog.Builder alertDialog = getBuilder(note);
-                alertDialog.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                alertDialog.show();
-                return true;
-            }
-        });
-
-        holder.block.setOnClickListener(new DoubleClick(new DoubleClickListener() {
-            @Override
-            public void onSingleClick(View view) {
-                if (holder.noteBodyTV.getVisibility() == View.VISIBLE){
-                    holder.noteBodyTV.setVisibility(View.GONE);
-                }
-                else{
-                    holder.noteBodyTV.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @Override
-            public void onDoubleClick(View view) {
-                Intent intent = new Intent(context, insert_note.class);
-                intent.putExtra("noteID", note.getId());
-                intent.putExtra("heading", note.getNoteHeading());
-                intent.putExtra("subHeading", note.getNoteBody());
-                intent.putExtra("priority", note.getNotePriority().toString());
-                intent.putExtra("intentType", "update");
-
+                Intent intent = new Intent(context, notes_layout.class);
+                intent.putExtra("noteId", noteId);
+                intent.putExtra("noteTitle", noteTile);
+                intent.putExtra("noteContent", noteContent);
+                intent.putExtra("noteCategory", noteCategory);
+                intent.putExtra("intentType", "Update");
                 context.startActivity(intent);
             }
-        }));
+        });
 
-    }
-
-    private AlertDialog.Builder getBuilder(Note note) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-        alertDialog.setTitle("Delete Note");
-        alertDialog.setMessage("Are you sure you want to delete");
-        alertDialog.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+        holder.layout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                notesViewModel.deleteNote(note);
+            public boolean onLongClick(View v) {
+                Utility.getNoteAleartBuilder(note, context, noteViewModel);
+                return false;
             }
         });
-        return alertDialog;
+
     }
 
     @Override
@@ -131,18 +93,16 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
     }
 
     public static class NotesViewHolder extends RecyclerView.ViewHolder {
-        public final TextView noteHeadingTV, noteBodyTV;
-        public final View notePriorityV;
-        public final ConstraintLayout block;
-        public NotesViewHolder(View view){
-            super(view);
-            noteHeadingTV = view.findViewById(R.id.notesHeading);
-            noteBodyTV = view.findViewById(R.id.notesBody);
-            notePriorityV = view.findViewById(R.id.priorityView);
-            block = view.findViewById(R.id.note_recycler_block);
+        public TextView noteTitleTxt, noteContentTxt;
+        public TextView notesCategoryList;
+        public ConstraintLayout layout;
 
+        public NotesViewHolder(@NonNull View itemView) {
+            super(itemView);
+            layout = itemView.findViewById(R.id.note_recycler_block);
+            noteTitleTxt = itemView.findViewById(R.id.noteTitle);
+            noteContentTxt = itemView.findViewById(R.id.noteContent);
+            notesCategoryList = itemView.findViewById(R.id.category);
         }
-
-
     }
 }

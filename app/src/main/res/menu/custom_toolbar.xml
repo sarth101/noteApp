@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/insert"
+        android:icon="@drawable/plus_foreground"
+        android:title="add"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/ascending_sort"
+        android:title="Sort By Date (Asc)"
+        app:showAsAction="collapseActionView"
+        android:visible="false"/>
+
+    <item android:id="@+id/descending_sort"
+        android:title="Sort By Date (Asc)"
+        app:showAsAction="collapseActionView"
+        android:visible="false"/>
+</menu>

@@ -8,11 +8,21 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.notesapp.model.Note;
+import com.example.notesapp.model.Todo;
 
 import java.util.List;
 
 @Dao
-public interface NotesDao {
+public interface NoteDao {
+    @Query("select * from notes order by noteId desc")
+    LiveData<List<Note>> getAllNotes();
+
+    @Query("select * from notes where category = :category order by noteId desc")
+    LiveData<List<Note>> getNoteByCategory(String category);
+
+    @Query("select distinct category from notes ")
+    LiveData<List<String>> getCategories();
+
     @Insert
     void insertNote(Note note);
 
@@ -21,8 +31,5 @@ public interface NotesDao {
 
     @Delete
     void deleteNote(Note note);
-
-    @Query("select * from Notes")
-    LiveData<List<Note>> getAllNotes();
 
 }

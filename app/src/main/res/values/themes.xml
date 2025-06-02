@@ -1,11 +1,13 @@
 <resources>
     <!-- Base application theme. -->
     <style name="AppTheme.Black" parent="Theme.Material3.Dark">
-        <item name="android:colorPrimary">@color/primary_color</item>
+        <item name="android:colorPrimary">@color/black</item>
         <item name="android:colorPrimaryDark"> @color/black</item>
         <item name="colorAccent">@color/black</item>
         <item name="android:textColorPrimary">@color/white</item>
         <item name="backgroundColor">@color/black</item>
+        <item name="android:windowTranslucentStatus">false</item>
+
     </style>
 
     <style name="Theme.NotesApp" parent="Base.Theme.NotesApp" />

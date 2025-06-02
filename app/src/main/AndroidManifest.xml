@@ -13,10 +13,13 @@
         android:theme="@style/AppTheme.Black"
         tools:targetApi="31">
         <activity
-            android:name=".views.insert_note"
+            android:name=".views.ui.note.notes_layout"
             android:exported="false" />
         <activity
-            android:name=".views.MainActivity"
+            android:name=".views.ui.ToDo.InsertTodo"
+            android:exported="false" />
+        <activity
+            android:name=".views.HomePage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
